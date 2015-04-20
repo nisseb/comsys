@@ -50,6 +50,6 @@ ylabel('iPhone share','FontSize', 20)
 
 set(gca, 'FontSize', 16)
 
-%saveas(f1, ['figs/t2p3_N' num2str(N) '_T' num2str(T) '.eps'], 'epsc')
+saveas(['figs/t2p3_N' num2str(N) '_T' num2str(T) '.eps])
 
 

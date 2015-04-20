@@ -29,6 +29,11 @@ f1 = figure(1);
 x = linspace(1,T,T);
 plot(x, dist./N)
 
+xlabel('Time','FontSize', 20)
+ylabel('iPhone share','FontSize', 20)
 
+set(gca, 'FontSize', 16)
+
+%saveas(f1, ['figs/t2p1_N' num2str(N) '_T' num2str(T) '.eps'], 'epsc')
 
 

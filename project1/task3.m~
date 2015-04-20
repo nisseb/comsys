@@ -6,7 +6,6 @@ size = 500;
 %rule = [1 0 0 1 0 1 1 0];
 %rule = [0 1 1 0];
 %rule = [0 1 1 0 1 0 0 1 1 0 0 1 0 1 1 0];
-%rule = [1 1 0 0 0 0 1 1];
 c = length(rule);
 
 M = zeros(size-1);
@@ -18,7 +17,7 @@ right = [0 1];
 down =  [1 0];
 left =  [0 -1];
 
-limit = 10000000;
+limit = 100000000;
 i = 1;
 
 while (i <= limit)
@@ -42,18 +41,8 @@ while (i <= limit)
     end
     
     % Periodic boundaries
-    if (pos(1) < 1)
-        pos(1) = size-1;
-    end
-    if (pos(1) > size-1)
-        pos(1) = 1;
-    end
-    if (pos(2) < 1)
-        pos(2) = size-1;
-    end
-    if (pos(2) > size-1)
-        pos(2) = 1;
-    end
+    pos(1) = mod(pos(1), size);
+    pos(2) = mod(pos(2), size);
     
     i = i + 1;
 end

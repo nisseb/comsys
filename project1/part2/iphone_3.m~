@@ -17,18 +17,21 @@ for t=2:timesteps
     end
     
     if (rand < q)
-        if (rand < 0.5)
-            y(t)=y(t)+1; % buy an iphone
-        end
+       if (rand < 0.5)
+           y(t)=y(t)+1; % choose an iphone
+       end
     else
-        draw1 = (rand < y(t)/(N-1));
-        draw2 = (rand < (y(t)-draw1)/(N-2));
+        draw1 = (rand < y(t)/N * y(t)/N);
+        draw2 = 
         
-        if (draw1 == draw2)
-            y(t)=y(t)+draw1;
-        else
-            y(t)=y(t)+iphone;
-        end
+        % found two who had iphone
+        if (rand < y(t)/N*y(t)/N)
+           y(t)=y(t)+1; 
+        elseif (rand < (N-y(t))/N * (N-y(t))/N)
+           
+        elseif (iphone == 1)
+           y(t)=y(t)+1;           
+        end    
     end
 end
 
@@ -41,4 +44,5 @@ if plotit
 end
 
 n = y(end);
+
 end

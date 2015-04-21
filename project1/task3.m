@@ -1,6 +1,6 @@
 function M = task3(rule)
     
-size = 500;
+size = 600;
 %rule = randi([0 1],[1 c]);
 %rule = [1 0 0 1]
 %rule = [1 0 0 1 0 1 1 0];
@@ -20,6 +20,9 @@ left =  [0 -1];
 
 limit = 10000000;
 i = 1;
+
+f1 = figure(1);
+colormap(copper)
 
 while (i <= limit)
     
@@ -58,10 +61,10 @@ while (i <= limit)
     i = i + 1;
 end
 
-f1 = figure(1);
-colormap(copper)
 imagesc(M);
+r = num2str(rule);
+r = strrep(r, ' ', '');
 
-%saveas(f1, ['figs/t3_painter_rule_' num2str(bi2de(rule)) 'eps'], 'epsc');
+saveas(f1, ['figs/t1p3/t3_painter_rule_' r '.eps'], 'epsc');
 
 end

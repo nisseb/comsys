@@ -19,8 +19,8 @@ end
 
 f1 = figure(1);
 colormap gray;
-imagesc(M);
+imagesc(M(1:(size-2)/2,:));
 
-%saveas(f1, ['figs/ca_rule_' num2str(bi2de(rule)) 'eps'], 'epsc');
+saveas(f1, ['figs/t1p1/ca_rule_' num2str(bi2de(rule)) '.eps'], 'epsc');
 
 end

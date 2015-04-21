@@ -43,7 +43,7 @@ f1 = figure(1);
 colormap gray
 imagesc(M);
 
-%saveas(f1, ['figs/t2_painter_rule_2' 'eps'], 'epsc');
+%saveas(f1, ['figs/t1p2/t2_painter_rule_2' '.eps'], 'epsc');
 
 end
 

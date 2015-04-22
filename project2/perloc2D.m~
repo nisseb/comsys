@@ -1,4 +1,5 @@
-function [SE Mlab] = perloc2D(L,p)
+function [sE Q] = perloc2D(L,p)
+% returns expected value of s: variable sE
 
 % Area
 A = L*L;
@@ -7,21 +8,17 @@ A = L*L;
 M = rand(L);
 M( M(:)<(1-p) ) = 0;
 M( M(:)>=(1-p) ) = 1;
-M_temp = M;
 
 % Using labeling function
-Mlab = bwlabel(M_temp,4);
-cM = zeros(L);
+Mlab = bwlabel(M,4);
 
-SE = zeros(1, max(max(Mlab)));
+% Calculating expected value
+sE = zeros(1, max(max(Mlab)));
+Q = zeros(1, L*L);
 for i = 1:max(max(Mlab))
-    SE(i) = length(Mlab(Mlab(:) == i))
+    sE(i) = length(Mlab(Mlab(:) == i));
+    Q(sE(i)) = Q(sE(i)) + 1;
 end
 
-SE = sum( SE.^2./A );
-
-f1 = figure(1);
-imagesc(M_temp);
-
-
+sE = sum( sE.^2./A );
 end

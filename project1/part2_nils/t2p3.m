@@ -1,7 +1,8 @@
+clear all
+close all
 
-
-N = 100;
-T = 30000;
+N = 15;
+T = 100000;
 
 p = 0.5;
 q = 0.1;
@@ -43,13 +44,20 @@ end
 
 f1 = figure(1);
 x = linspace(1,T,T);
-plot(x, dist./N)
+plot(x,dist./N)
 
-xlabel('Time','FontSize', 20)
-ylabel('iPhone share','FontSize', 20)
+f2 = figure(2);
+hist(dist./sum(dist).*T./2,100)
+xlim([0 1])
+
+xlabel('iPhone distribution','FontSize', 20)
+ylabel('Frequency','FontSize', 20)
 
 set(gca, 'FontSize', 16)
 
-%saveas(f1, ['figs/t2p3_N' num2str(N) '_T' num2str(T) '.eps'], 'epsc')
+qstr = num2str(q);
+qstr = strrep(qstr, '.', ',');
+
+saveas(f2, ['figs/t2p3_q' qstr '_N' num2str(N) '_T' num2str(T) '.eps'], 'epsc')
 
 

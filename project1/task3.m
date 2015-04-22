@@ -1,13 +1,14 @@
 function M = task3(rule)
     
 size = 600;
-%rule = randi([0 1],[1 c]);
+rule = randi([0 1],[1 256]);
 %rule = [1 0 0 1]
 %rule = [1 0 0 1 0 1 1 0];
 %rule = [0 1 1 0];
 %rule = [0 1 1 0 1 0 0 1 1 0 0 1 0 1 1 0];
 %rule = [1 1 0 0 0 0 1 1];
 c = length(rule);
+
 
 M = zeros(size-1);
 pos = [size / 2, size / 2];

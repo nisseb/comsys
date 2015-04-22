@@ -1,10 +1,10 @@
 
 
-N = 1000;
-T = 1000;
+N = 15;
+T = 10000;
 
 p = 0.5;
-qvec = [0:0.002:1];
+qvec = [0:0.01:1];
 
 PX = p;
 PY = 1-p;
@@ -50,13 +50,16 @@ end
 
 f1 = figure(1);
 x = 1:length(qvec);
-plot(x, finaldist(1,:)./N)
+plot(qvec, finaldist(1,:)./N, '*')
+ylim([0 1]);
 
-xlabel('Time','FontSize', 20)
+xlabel('q','FontSize', 20)
 ylabel('iPhone share','FontSize', 20)
 
 set(gca, 'FontSize', 16)
 
-%saveas(f1, ['figs/t2p3_N' num2str(N) '_T' num2str(T) '.eps'], 'epsc')
+pstr = num2str(PX);
+pstr = strrep(pstr, '.', ',');
+saveas(f1, ['figs/t2p4/findist_N' num2str(N) '_T' num2str(T) '_p' pstr '.eps'], 'epsc')
 
 

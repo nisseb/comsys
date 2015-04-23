@@ -1,7 +1,7 @@
 %% SIMULATION PARAMETERS
 SIZE = 500;
 MAX_STEPS = 11000000000;
-UPDATE_INTERVAL = 10000;
+UPDATE_INTERVAL = 1000;
 
 % Defines the painter behaviour on each color i
 % turn_rule(i) : behaviour
@@ -9,7 +9,7 @@ UPDATE_INTERVAL = 10000;
 %           1  : turn right
 %           2  : turn back
 %           0  : do nothing
-turn_rule = [1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1 1 -1 -1 1];
+turn_rule = [1 -1 -1 1];
 %turns = [-1 1];
 %turn_rule = turns(1+floor(rand(1,100) * length(turns)))
 

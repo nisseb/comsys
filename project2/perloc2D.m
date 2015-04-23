@@ -5,20 +5,16 @@ function [sE Q] = perloc2D(L,p)
 A = L*L;
 
 % Setting up M
-M = rand(L);
-M( M(:)<(1-p) ) = 0;
-M( M(:)>=(1-p) ) = 1;
+M = rand(L) < p;
 
 % Using labeling function
-Mlab = bwlabel(M,4);
+clust = bwlabel(M,4);
 
-% Calculating expected value and cluster distribution
-sE = zeros(1, max(max(Mlab)));
-Q = zeros(1, L*L);
-for i = 1:max(max(Mlab))
-    sE(i) = length(Mlab(Mlab(:) == i));
-    Q(sE(i)) = Q(sE(i)) + 1;
-end
+% Get cluster data
+nclust = nonzeros(clust);
+clustsize = hist(nclust, unique(nclust));
+    
+Q = hist(clustsize, 1:L^2);
+sE = sum(clustsize.^2)/L^2;
 
-sE = sum( sE.^2./A );
 end

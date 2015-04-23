@@ -1,0 +1,30 @@
+
+L = 300; 
+f = 0.1/(L^2); 
+g = 10000*f;
+
+steps = 100;
+
+forest = zeros(L);
+cluster = zeros(L);
+lightning 
+
+i = 1;
+while (i < steps)
+    
+    growth = rand(L) < g;
+    forest = or(forest + growth);
+    
+    lightning = rand(L) < f;
+    l_idx = find(L);
+    clusters = bwlabel(forest);
+    
+    lsc = unique(clusters(l_idx));
+    
+    for k=1:length(lsc)
+        cluster(cluster == lsc(k)) = 0;
+    end
+    
+    
+    
+end

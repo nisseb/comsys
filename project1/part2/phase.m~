@@ -1,7 +1,0 @@
-q_vals = 0:0.01:1;
-N
-
-for q=q_vals
-    iphone_3(
-    
-end

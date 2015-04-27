@@ -1,5 +1,5 @@
 pvals = [0.3 0.592 0.8];
-L = 1000;
+L = 500;
 
 for p=pvals
     [~, Q] = mean_clustersize(L, p);

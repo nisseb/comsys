@@ -1,10 +1,13 @@
-L = 300;
-%f = 0.1/(L*L);
-f = 0.0001;
-g = 100*f;
+% forest size L*L sites
+L = 1000;
+
+% f probability of site being struck by lightnings
+f = 0.1/(L*L);
+% g probability of tree growth per site
+g = 10000*f;
 
 
-timesteps = 1000;
+timesteps = 10000;
 
 forest = zeros(L);
 pvals = zeros(1,timesteps);
@@ -26,15 +29,18 @@ for t=1:timesteps
     forest = xor(forest, ismember(forest_clust, killed_clusters));
     
     % get forest density
-    p = sum(sum(forest))/L^2;
-    pvals(t) = p;
+    %p = sum(sum(forest))/L^2;
+    %pvals(t) = p;
     
     % plot
     if (mod(t,10) == 0)
+        p = sum(sum(forest))/L^2;
+        pvals(t) = p;
         imagesc(forest)
         title(['t=' num2str(t) ' p=' num2str(p)])
         drawnow
     end   
 end
 
-mean(pvals);
+figure(2)
+plot(nonzeros(pvals))

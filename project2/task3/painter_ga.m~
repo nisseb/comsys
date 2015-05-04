@@ -3,14 +3,14 @@
 %% Parameters
 
 pop_size = 50;
-generations = 200;
+generations = 50;
 mutate_prob = 0.002;
 cross_prob = 1;
-sample_n = 5;   % how many times to calculate fitness for each
+sample_n = 10;   % how many times to calculate fitness for each
 
+%% Initial setup
 
-%% Initial state
-chromos = randi(5, pop_size, 54) - 1;
+chromos = randi(4, pop_size, 54) - 1;
 room = zeros(20, 40);
 fitness = zeros(generations+1, pop_size);
 
@@ -48,7 +48,7 @@ for g=1:generations
     % update the new generation
     chromos = new_chromos;
     
-    % do random mutations with probaility mutate_prob per locus
+    % do random mutations with probability mutate_prob per locus
     for k=1:pop_size*54
        if (rand < mutate_prob)
           chromos(k) = randi(4)-1;
@@ -57,6 +57,7 @@ for g=1:generations
     
 end
 
+% Calculate scores again and get the best one
 for k=1:pop_size    
    	scores = zeros(sample_n, 1);
         
@@ -67,7 +68,17 @@ for k=1:pop_size
     fitness(end, k) = mean(scores);
 end
 
+[best_score, best_i] = max(fitness(end, :));
+best_chromo = chromos(best_i, :);
+disp(['Best average score: ' num2str(best_score)])
 
+figure(1)
 plot(mean(fitness, 2))
 xlabel('Generation')
 ylabel('Average population fitness')
+
+figure(2)
+colormap copper
+imagesc(chromos)
+xlabel('locus point')
+ylabel('chromosome number')

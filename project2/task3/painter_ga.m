@@ -2,8 +2,8 @@
 
 %% Parameters
 
-pop_size = 200;
-generations = 50;
+pop_size = 50;
+generations = 200;
 mutate_prob = 0.002;
 cross_prob = 1;
 sample_n = 10;   % how many times to calculate fitness for each

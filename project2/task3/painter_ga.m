@@ -2,7 +2,7 @@
 
 %% Parameters
 
-pop_size = 50;
+pop_size = 50; % should be even number
 generations = 100;
 mutate_prob = 0.002;
 cross_prob = 1;
@@ -12,6 +12,7 @@ sample_n = 5;   % how many times to calculate fitness for each
 
 chromos = randi(4, pop_size, 54) - 1;
 room = zeros(20, 40);
+room = room2;
 fitness = zeros(generations+1, pop_size);
 
 %% Evolve

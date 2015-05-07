@@ -1,5 +1,4 @@
-function [S, Q] = mean_clustersize(L, p)
-    
+function [S, Q] = mean_clustersize(L, p)  
     % label the clusters
     [clust, ~] = bwlabel(rand(L) < p, 4);
     

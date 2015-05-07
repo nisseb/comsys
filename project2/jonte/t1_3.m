@@ -1,16 +1,16 @@
-L = 1000;
+L = 800;
 p = 0.592;
 
-nk = 10;
+nk = 20;
 
 Q = zeros(nk, L*L);
 cumQ = zeros(nk, L*L);
 
-for k=1:5
+for k=1:nk
    [S, Q_temp] = mean_clustersize(L, p);
    
-   Q(1,:) = Q_temp;
-   cumQ(1,:) = cumsum(Q_temp, 'reverse');    
+   Q(k,:) = Q_temp;
+   cumQ(k,:) = cumsum(Q_temp, 'reverse');    
 end
 
 Q_mean = mean(Q);
@@ -24,7 +24,7 @@ ylabel('Number of clusers of size x')
 x_min = 10;
 x=find(Q_mean > x_min);
 
-alpha = 1 + length(x)*(sum(log(Q_mean(x)./(x_min-0.5))))^-1;
+alpha = 1 + length(x)/(sum(log(Q_mean(x)./(x_min))))
 y = Q_mean(x(1)) * x.^(-alpha);
 hold on 
 plot(x,y)

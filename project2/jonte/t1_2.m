@@ -1,5 +1,5 @@
 pvals = [0.3 0.592 0.8];
-L = 500;
+L = 800;
 
 for p=pvals
     [~, Q] = mean_clustersize(L, p);
@@ -27,11 +27,15 @@ figure(1)
 legend('p = 0.3','p = 0.592','p = 0.8')
 xlabel('Cluster size x')
 ylabel('Number of clusers of size x')
+xlim([0 120])
+ylim([0 250])
 
 figure(2)
 legend('p = 0.3','p = 0.592','p = 0.8')
 xlabel('Cluster size x')
 ylabel('Number of clusers of size >= x')
+xlim([0 180])
+ylim([0 600])
 
 figure(3)
 legend('p = 0.3','p = 0.592','p = 0.8')

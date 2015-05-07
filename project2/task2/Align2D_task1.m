@@ -15,19 +15,19 @@ J=500; %Number of timestep t0 be used
 UJ=1;   %Rate at which film is updated
 
 
-t=1/J %Size of one time step
+t=1/J; %Size of one time step
 
-N=40 %Number of particles
+N=40; %Number of particles
 
-e=0.5 %e is eta the noise parameter, whose maximum value is 2*pi
+e=0.5; %e is eta the noise parameter, whose maximum value is 2*pi
 
-r=1
+r=1;
 
 %The radius of influence of a particle
 
-L=10 %L is the size of the domain on which the particles can move
+L=10; %L is the size of the domain on which the particles can move
 
-v=0.5 %v is the speed at which the particles move
+v=0.5; %v is the speed at which the particles move
 
 a = [0 pi/3 2*pi/3];
 a = a(3);
@@ -69,6 +69,7 @@ for j=1:J
         
             B=sum(A')';
             
+            % Only interact with individuals with similar T
             B = B .* ( abs((T(i,j) - T(:,j))) <= a );
             
             ss=sum(sin(T(:,j)).*B)/sum(B);

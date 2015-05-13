@@ -7,7 +7,7 @@ close all
 
 L = 800;
 p = 0.592;
-iterations = 2;
+iterations = 10;
 Q = zeros(iterations, L*L);
 Qc = zeros(iterations, L*L);
 
@@ -30,8 +30,7 @@ end
 
 %% Mean Q
 
-mQ = mean(Q);
-mQc = mean(Qc);
+
 
 
 %% Calculate alpha
@@ -49,11 +48,11 @@ end
 
 alpha = 1 + n * tempsum^(-1);
 
-%midx = find(mQ(x_min+1:end)) + x_min;
-temp = Q(i,idx)./sum(Q(i,idx)).*idx.^(alpha);
+midx = find(mQ(x_min+1:end)) + x_min;
+temp = mQ(midx)./sum(mQ(midx)).*midx.^(alpha);
 C = mean(temp);
 
-vals = C .* idx.^(-alpha);
+vals = C .* midx.^(-alpha);
 
 % ./sum(mQ(midx))
 
@@ -64,11 +63,9 @@ disp(['C = ' num2str(C)]);
 
 %% Plot figures
 
-% R?nka ut nytt index
-
 % Plotting regular distribution
 f1 = figure(2);
-loglog(idx,mQ(idx), '*', ...
+loglog(mQ, '*', ...
     'DisplayName', ['Regular']);
 set(gca, 'FontSize', 16)
 hold on
@@ -80,7 +77,7 @@ set(lh3, 'FontSize', 16);
 
 % Plotting cummulative distribution
 f2 = figure(2);
-loglog(idx,mQc(idx), '*', ...
+loglog(mQc, '*', ...
     'DisplayName', ['Cumulative']);
 set(gca, 'FontSize', 16)
 hold on
@@ -97,7 +94,7 @@ set(lh3, 'FontSize', 16);
 % x = logspace(log10(mQ(idx_max)), log10(mQ(idx_min)), 100);
 
 f2 = figure(2);
-loglog(idx, vals, 'LineWidth', 2, ...
+loglog(midx, vals, 'LineWidth', 2, ...
     'DisplayName', ['Approx']);
 
 xlabel('Cluster size', 'FontSize', 20);

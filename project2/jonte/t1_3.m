@@ -21,13 +21,21 @@ loglog(Q_mean);
 xlabel('Cluster size x')
 ylabel('Number of clusers of size x')
 
-x_min = 10;
-x=find(Q_mean > x_min);
+% Fit a power law to the data
+x_min = 6;
+x_all = 1:length(Q_mean);
+x = x_min:length(Q_mean);
+Q_mean = Q_mean(x);
 
-alpha = 1 + length(x)/(sum(log(Q_mean(x)./(x_min))))
-y = Q_mean(x(1)) * x.^(-alpha);
+alpha = 1 + sum(Q_mean)/sum(Q_mean.*log(x./(x_min-0.5)));
+C = mean(Q_mean./x.^(-alpha));
+y = C * x_all.^(-alpha);
+std_alpha = (alpha-1)/sqrt()
+
 hold on 
-plot(x,y)
+plot(x_all,y)
+s = ['{-' num2str(alpha) '}'];
+legend('Simulation data' , ['Power law: ' num2str(C) '*' 'x^' s])
 
 figure(2)
 loglog(cumQ_mean);

@@ -1,7 +1,7 @@
 clear all
 close all
 
-L = 50;
+L = 800;
 pvals = [0.3, 0.592, 0.8];
 Q = zeros(length(pvals), L*L);
 

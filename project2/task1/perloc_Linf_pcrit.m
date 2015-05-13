@@ -3,9 +3,9 @@
 clear all
 close all
 
-L = 2000;
+L = 800;
 p = 0.592;
-iterations = 10;
+iterations = 1;
 Q = zeros(iterations, L*L);
 Qc = zeros(iterations, L*L);
 
@@ -25,6 +25,9 @@ end
 
 mQ = mean(Q);
 mQc = mean(Qc);
+
+% mQ = Q;
+% mQc = Qc;
 
 % Plotting regular distribution
 f1 = figure(2);
@@ -52,10 +55,15 @@ set(lh3, 'FontSize', 16);
 
 idx = find(mQ >= 6);
 idx_max = idx(1);
-idx_min = idx(end);
+
+% Get smallest x_i
+%idx_min = idx(end);
+xmin = min(mQ(idx));
+idx_min = find(mQ == xmin, 1);
 
 n = length(idx);
 alpha = 1 + n * ( sum( log10(mQ(idx)./mQ(idx_min)) ) )^(-1)
+alpha = 1 + n * ( sum( log(mQ(idx)./mQ(idx_min)) ) )^(-1)
 
 x = logspace(log10(mQ(idx_max)), log10(mQ(idx_min)), 100);
 vals = mQ(1) .* idx.^(-alpha);

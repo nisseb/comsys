@@ -2,6 +2,7 @@
 
 % Initial setup
 Lvals = [20 50 100 200 300];
+Lvals = [20 100 300];
 pvals = [0:0.5:0.55 0.555:0.005:0.625 0.63:0.02:0.67 0.7:0.1:1];
 sE = zeros(length(Lvals),length(pvals));
 

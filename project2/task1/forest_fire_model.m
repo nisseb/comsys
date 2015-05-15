@@ -1,11 +1,11 @@
 
 
 
-L = 300;
+L = 100;
 f = 0.1/(L^2); 
 g = 10000*f;
 
-steps = 50000;
+steps = 10000;
 
 growth = zeros(L);
 forest = zeros(L);
@@ -32,7 +32,7 @@ while (i < steps)
     
     td = sum(sum(forest)) / (L*L);
     
-    if (mod(i,100) == 0)
+    if (mod(i,10) == 0)
         imagesc(forest);
         title(['Timestep: ' num2str(i), ...
                ', Tree distribution: ' num2str(td)]);
@@ -50,8 +50,11 @@ plot(td_data, 'LineWidth', 2);
 xlabel('Time t', 'FontSize', 20)
 ylabel('Density p', 'FontSize', 20)
 set(gca, 'FontSize', 16)
-xlim([0 20000])
+xlim([0 2000])
 ylim([0 1])
+
+pks = findpeaks(td_data);
+mean(pks)
 
 %saveas(f2, 'figs/ff_dens.eps', 'epsc')
 

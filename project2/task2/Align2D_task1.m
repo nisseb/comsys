@@ -1,10 +1,6 @@
 % Self-propelled particle model of aggregation in two dimensions.
 % Written by Kit Yates
 
-clear
-close all
-
-
 
 %Set up movie
 fig=figure;
@@ -113,15 +109,26 @@ for j=1:J
 end
 
 f2 = figure(2);
-plot(1:J+1, phi_p)
+plot(1:J+1, phi_p, 'LineWidth', 1, ...
+     'DisplayName', ['alpha = ' num2str(a)])
+hold on
 
-
+lh2 = legend('-DynamicLegend');
+xlabel('time t', 'FontSize', 20)
+ylabel('Polar order', 'FontSize', 20)
+set(lh2, 'FontSize', 16, 'Location', 'best')
+set(gca, 'FontSize', 16)
 
 f3 = figure(3);
-plot(1:J+1, phi_a)
+plot(1:J+1, phi_a, 'LineWidth', 1, ...
+     'DisplayName', ['alpha = ' num2str(a)])
+hold on
 
-
-
+lh3 = legend('-DynamicLegend');
+xlabel('time t', 'FontSize', 20)
+ylabel('Apolar order', 'FontSize', 20)
+set(lh3, 'FontSize', 16, 'Location', 'best')
+set(gca, 'FontSize', 16)
      
 %movien = close(movien); %finishes the movie
 

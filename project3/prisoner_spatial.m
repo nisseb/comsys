@@ -1,20 +1,15 @@
-close all hidden
+function [dens, grid] = prisoner_spatial(rewards, n, steps, p, PLOT)
+% rewards should be [R S T P]
+% n size of grid
+% p initial deffector density
+
+if nargin < 5
+    PLOT = 0;
+end
 
 %% Simulation parameters
-steps = 50000;
-n = 199;
-p = 0.1; % Initial D
 SINB = 0;
 DYNB = 0;
-
-%% System parameters
-
-% T>R>P>S
-T = 1.9;
-R = 1;
-P = 0;
-S = 0;
-rewards = [R S T P];
 
 if SINB
     bvec = 1.75 + 0.3 .* sin(linspace(0,2*pi, steps))
@@ -28,15 +23,12 @@ end
 
 %% Data
 dens = zeros(1,steps+1);
-%grid = rand(n) < p;
-grid = zeros(n);
-grid(100,100) = 1;
-
+grid = rand(n) < p;
 dens(1) = sum(sum(grid))./(n*n);
 
-colormap([0,0,1;1,1,0;0,1,0;1,0,0])
-
-nn = 0;
+if PLOT 
+    colormap([0,0,1;1,1,0;0,1,0;1,0,0])
+end
 
 %% Main loop
 for k = 1:steps
@@ -82,30 +74,11 @@ for k = 1:steps
     % C->D yellow 1
     % D->C green 2
     % C->C blue 0
-    imagesc(grid+prev_grid, [0 3])
-    drawnow
-    
-    % Print progress
-    msg = ['Step: ' num2str(k) '/' num2str(steps)];
-    fprintf(repmat('\b',1,nn));
-    fprintf(msg);
-    nn=numel(msg);
+    if PLOT
+        imagesc(grid+prev_grid, [0 3])
+        title(num2str(k))
+        drawnow
+    end
 end
-
-%% Plot data
-f2 = figure;
-plot(dens, 'LineWidth', 2);
-xlabel('Time', 'FontSize', 20)
-ylabel('Cooperator density', 'FontSize', 20)
-set(gca, 'FontSize', 20);
-xlim([1 k]);
-ylim([0 1]);
-
-[d_clust, d_n] = bwlabel(grid, 8);
-[c_clust, c_n] = bwlabel(not(grid), 8);
-fprintf('\n')
-disp(['Number of defector clusters: ' num2str(d_n)])
-disp(['Number of cooperator clusters: ' num2str(c_n)])
-disp(['Final cooperator density: ' num2str(dens(end))])
 
 

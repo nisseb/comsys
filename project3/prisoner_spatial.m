@@ -61,8 +61,14 @@ for k = 1:steps
     per_grid = padarray(grid,[1 1], 'circular');
     
     % Calculate interaction and update grid
-    max_offset_grid = nlfilter(per_score_grid, [3 3], ...
-                               @(M) max_offset(M,n+2));    
+    max_offset_grid = zeros(n+2);
+    for i=2:n+1
+        for j=2:n+1
+            nhood = per_score_grid(i-1:i+1,j-1:j+1);
+            max_offset_grid(i, j) = max_offset(nhood, n+2);
+        end
+    end
+    
  	max_offset_grid(:) = max_offset_grid(:) + [1:((n+2)*(n+2))]';
     grid = per_grid(max_offset_grid(2:end-1,2:end-1));
     

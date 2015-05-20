@@ -3,11 +3,11 @@ R = 1;
 P = 0;
 S = 0;
 
-L = 100;
+L = 400;
 steps = 100;
 p = 0.1;
 
-t_min = 1.7;
+t_min = 1.1;
 t_max = 2.1;
 n_vals = 10;
 Tvals = linspace(t_min,t_max,n_vals);
@@ -21,7 +21,7 @@ f1 = figure;
 for k=1:length(Tvals)
 
     rewards = [R S Tvals(k) P];
-    [dens_data(k,:), grid_data(k,:,:)] = prisoner_spatial(rewards, L, steps, p);
+    [dens_data(k,:), grid_data(k,:,:)] = prisoner_spatial(rewards, L, steps, p, true);
     
     f1;
     plot(dens_data(k,:), 'DisplayName', num2str(Tvals(k)))

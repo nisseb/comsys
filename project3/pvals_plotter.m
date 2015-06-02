@@ -22,13 +22,15 @@ for k=1:n
     final_dens(k) = mean(data.dens_data(k, len-25:len));
 end
 
-figure(1)
+f1 = figure(1);
 plot(Tvals, final_dens, 'DisplayName', ['p = ' pstr], ...
      'LineWidth', 1)
-xlabel('T - reward for D against C')
-ylabel('Equilibrium C density')
-legend('-DynamicLegend')
-
+ set(gca, 'FontSize', 16)
+xlabel('T - reward for D against C', 'FontSize', 20)
+ylabel('Equilibrium C density', 'FontSize', 20)
+xlim([min(Tvals) max(Tvals)])
+lh1 = legend('-DynamicLegend');
+set(lh1, 'FontSize', 16, 'Location', 'best');
 hold on
 
 %% Plot cluster counts
@@ -40,13 +42,15 @@ for k=1:n
     [~, cooperator_clusters(k)] = bwlabel(not(grid), 8);
 end
 
-figure(2)
+f2 = figure(2);
 %plot(Tvals, deffector_clusters, Tvals, cooperator_clusters)
 plot(Tvals, cooperator_clusters, 'DisplayName', ['p = ' pstr], ...
      'LineWidth', 1)
 xlabel('T - reward for D against C')
 ylabel('Number of clusters')
-legend('-DynamicLegend')
+xlim([min(Tvals) max(Tvals)])
+lh2 = legend('-DynamicLegend');
+set(lh2, 'FontSize', 16, 'Location', 'best');
 
 hold on
 

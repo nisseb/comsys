@@ -1,7 +1,11 @@
-function [dens, grid] = prisoner_spatial(rewards, n, steps, p, PLOT)
+function [dens, grid] = prisoner_spatial(rewards, n, steps, p, PLOT, MEM)
 % rewards should be [R S T P]
 % n size of grid
 % p initial deffector density
+
+if nargin < 6
+    MEM = 0;
+end
 
 if nargin < 5
     PLOT = 0;
@@ -23,8 +27,12 @@ end
 
 %% Data
 dens = zeros(1,steps+1);
-grid = rand(n) < p;
+%grid = rand(n) < p;
+grid = zeros(n);
+grid((n+1)/2, (n+1)/2) = 1;
 dens(1) = sum(sum(grid))./(n*n);
+new_grid = zeros(n);
+mem_grid = zeros(n);
 
 if PLOT 
     colormap([0,0,1;1,1,0;0,1,0;1,0,0])
@@ -33,7 +41,7 @@ end
 %% Main loop
 for k = 1:steps
     score = zeros(n);
-    prev_grid = 2*grid;
+    prev_grid = grid;
     
     if SINB
         T = bvec(k)
@@ -70,7 +78,28 @@ for k = 1:steps
     end
     
  	max_offset_grid(:) = max_offset_grid(:) + [1:((n+2)*(n+2))]';
-    grid = per_grid(max_offset_grid(2:end-1,2:end-1));
+    
+    if MEM
+        % New proposed grid
+        new_grid = per_grid(max_offset_grid(2:end-1,2:end-1));
+
+        % 1:s if change is good
+        temp_grid = xor(grid, new_grid);
+
+        % Identify where to change (2:s) and set new grid
+        mem_grid = mem_grid + temp_grid;
+        idx = find(mem_grid == 2);
+        grid(idx) = new_grid(idx);
+
+        % Set 2:s to 1:s in mem_grid
+        mem_grid(mem_grid == 2) = 1;
+
+        % Set 1:s to 0:s (weak to strong)
+        idx2 = find(temp_grid == 0);
+        mem_grid(idx2) = 0;
+    else
+        grid = per_grid(max_offset_grid(2:end-1,2:end-1));
+    end
     
     % Collect data
     dens(k+1) = 1 - sum(sum(grid))/(n*n);
@@ -81,7 +110,8 @@ for k = 1:steps
     % D->C green 2
     % C->C blue 0
     if PLOT
-        imagesc(grid+prev_grid, [0 3])
+        imagesc(grid+2*prev_grid, [0 3])
+        %imagesc(grid, [0 1])
         title(num2str(k))
         drawnow
     end

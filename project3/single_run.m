@@ -1,12 +1,16 @@
-close all hidden
+%% Runs prisoner_spatial.m
+% 
 
+%% System and simulation parameters
+% Rewards
 T = 1.9;
 R = 1;
 P = 0;
 S = 0;
 
-L = 199;
-steps = 500;
+% size, length and cooperator density
+L = 200;
+steps = 200;
 p = 0.1;
 
 rewards = [R S T P];

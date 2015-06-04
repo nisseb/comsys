@@ -2,6 +2,10 @@ function [dens, grid] = prisoner_spatial(rewards, n, steps, p, PLOT, MEM)
 % rewards should be [R S T P]
 % n size of grid
 % p initial deffector density
+% steps simulation time steps
+% p cooperator density (random positioning)
+% PLOT produces grid plot during simulation
+% MEM uses bimodal states (1 step memory)
 
 if nargin < 6
     MEM = 0;
@@ -11,27 +15,10 @@ if nargin < 5
     PLOT = 0;
 end
 
-%% Simulation parameters
-SINB = 0;
-DYNB = 0;
-
-if SINB
-    bvec = 1.75 + 0.3 .* sin(linspace(0,2*pi, steps))
-end
-
-if DYNB
-    T = 2.05
-    dens_ulim = 0.8;
-    dens_llim = 0.2;
-end
-
 %% Data
 dens = zeros(1,steps+1);
-%grid = rand(n) < p;
-grid = zeros(n);
-grid((n+1)/2, (n+1)/2) = 1;
+grid = rand(n) < p;
 dens(1) = sum(sum(grid))./(n*n);
-new_grid = zeros(n);
 mem_grid = zeros(n);
 
 if PLOT 
@@ -42,18 +29,6 @@ end
 for k = 1:steps
     score = zeros(n);
     prev_grid = grid;
-    
-    if SINB
-        T = bvec(k)
-    end
-    
-    if DYNB && k > 10
-        if (mean(dens(1,k-10:k)) < dens_llim)
-            T = 1.5
-        elseif (mean(dens(1,k-10:k)) > dens_ulim)
-            T = 2.05
-        end
-    end
     
     % Calculate score
     for i = -1:1
@@ -111,7 +86,6 @@ for k = 1:steps
     % C->C blue 0
     if PLOT
         imagesc(grid+2*prev_grid, [0 3])
-        %imagesc(grid, [0 1])
         title(num2str(k))
         drawnow
     end

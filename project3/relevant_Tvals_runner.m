@@ -5,7 +5,7 @@ S = 0;
 
 L = 200;
 steps = 200;
-p = 0.7;
+p = 0.1;
 
 %% Tvals
 n_vals = 100;
@@ -18,7 +18,7 @@ Tvals = [1.4 1.55 1.65 1.78 1.9 2.1];
 
 %% pvals
 p = [0.1 0.4 0.7];
-idx = 3;
+idx = 1;
 
 
 dens_data = zeros(n_vals, steps+1);
@@ -26,12 +26,12 @@ grid_data = zeros(n_vals, L, L);
 
 data = struct;
 
-f2 = figure;
+f1 = figure;
 
 for k=1:length(Tvals)
 
     rewards = [R S Tvals(k) P];
-    [dens_data(k,:), grid_data(k,:,:)] = prisoner_spatial(rewards, L, steps, p(idx));
+    %[dens_data(k,:), grid_data(k,:,:)] = prisoner_spatial(rewards, L, steps, p(idx));
 
     f1;
     plot(dens_data(k,:), 'DisplayName', num2str(Tvals(k)))
@@ -39,8 +39,11 @@ for k=1:length(Tvals)
     disp(['k = ' num2str(k)]);
 end
 
-
+set(gca, 'FontSize', 16)
+xlabel('Time', 'FontSize', 20)
+ylabel('C density', 'FontSize', 20)
 lh = legend('-DynamicLegend');
+set(lh, 'FontSize', 16);
 
 data.dens_data = dens_data;
 data.grid_data = grid_data;

@@ -46,8 +46,9 @@ f2 = figure(2);
 %plot(Tvals, deffector_clusters, Tvals, cooperator_clusters)
 plot(Tvals, cooperator_clusters, 'DisplayName', ['p = ' pstr], ...
      'LineWidth', 1)
-xlabel('T - reward for D against C')
-ylabel('Number of clusters')
+ set(gca, 'FontSize', 16)
+xlabel('T - reward for D against C', 'FontSize', 20)
+ylabel('Number of clusters', 'FontSize', 20)
 xlim([min(Tvals) max(Tvals)])
 lh2 = legend('-DynamicLegend');
 set(lh2, 'FontSize', 16, 'Location', 'best');

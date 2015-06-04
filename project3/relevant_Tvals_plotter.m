@@ -31,7 +31,7 @@ for l=1:length(p)
     end
 end
 
-f(1) = figure(1);
+f1 = figure(1);
 x = 1:n;
 y = [final_dens(1,:); final_dens(2,:); final_dens(3,:)]';
 bh1 = bar(x, y);
@@ -40,7 +40,7 @@ legend('-DynamicLegend')
 
 set(gca, 'XTick', 1:n, 'XTickLabel', Tvals, 'FontSize', 16')
 
-xlabel('Defector to Collaborator reward')
+xlabel('Defector to Cooperator reward')
 ylabel('Equilibrium C density')
 
 %% Plot cluster counts
@@ -54,7 +54,7 @@ for l=1:length(p)
     end
 end
 
-f(2) = figure(2);
+f2 = figure(2);
 x = 1:n;
 y = [cooperator_clusters(1,:); cooperator_clusters(2,:); cooperator_clusters(3,:)]';
 bh2 = bar(x, y);
@@ -64,7 +64,7 @@ legend('-DynamicLegend')
 
 set(gca, 'XTick', 1:n, 'XTickLabel', Tvals, 'FontSize', 16')
 
-xlabel('Defector to Collaborator reward')
+xlabel('Defector to Cooperator reward')
 ylabel('Number of clusters')
 
 % Show grid
@@ -91,7 +91,7 @@ for l=1:length(p)
         dir = ['figs/grid_figs/'];
         figname = ['T=' num2str(Tvals(k)) 'p=' num2str(pvals(l))];
         figname = strrep(figname, '.', ',');
-        saveas(f, [dir figname],'png')
+        %saveas(f, [dir figname],'png')
         close(f)
     end
 end
